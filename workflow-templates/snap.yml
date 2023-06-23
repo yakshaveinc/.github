@@ -1,5 +1,6 @@
 # Build default branch and PRs, publish only from default.
-# Needs `STORE_LOGIN` configured https://github.com/snapcore/action-publish#store-login 
+# Needs `STORE_LOGIN` configured https://github.com/snapcore/action-publish#store-login
+# Change channel from default `edge` if needed.
 
 name: Build and pubish snap package
 
@@ -19,7 +20,7 @@ jobs:
     - id: publish
       if: github.ref == format('refs/heads/{0}', $default-branch)
       uses: snapcore/action-publish@v1
-      env:fun
+      env:
         SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.STORE_LOGIN }}
       with:
         snap: ${{ steps.build.outputs.snap }}
