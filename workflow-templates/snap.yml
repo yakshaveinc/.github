@@ -1,5 +1,7 @@
-# Build default branch and PRs, publish only from default.
-# Needs `STORE_LOGIN` configured https://github.com/snapcore/action-publish#store-login
+# Build default branch and PRs, publish only from default, uses hacks until this is fixed.
+#   https://github.com/actions/starter-workflows/issues/2100
+# Needs `STORE_LOGIN` configured:
+#   https://github.com/snapcore/action-publish/blob/1ff0862b7fed38d4e843a2fdae55776ffd729986/README.md
 # Change channel from default `edge` if needed.
 
 name: Build and pubish snap package
@@ -18,10 +20,11 @@ jobs:
     - id: build
       uses: snapcore/action-build@v1
     - id: publish
-      if: github.ref == format('refs/heads/{0}', $default-branch)
+      if: github.ref == format('refs/heads/{0}', fromJSON('$default-branch'))
       uses: snapcore/action-publish@v1
       env:
         SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.STORE_LOGIN }}
+        SNAPCRAFT_STORE_AUTH: candid
       with:
         snap: ${{ steps.build.outputs.snap }}
         release: edge
