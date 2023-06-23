@@ -1,7 +1,7 @@
 {
     "name": "Build and publish snap package",
-    "description": "Builds default branch and PRs, publishes only default. Needs `STORE_LOGIN` configured https://github.com/snapcore/action-publish#store-login",
-    "iconName": "octoicon package",
+    "description": "Build snap package and publish it to snap store.",
+    "iconName": "octicon package",
     "categories": [
         "continuous-integration"
     ],
